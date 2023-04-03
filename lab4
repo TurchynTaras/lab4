@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cmath>
+#include <windows.h>
+using namespace std;
+
+double compute_a(double x) {
+    if (x < 4.3) return -2.5;
+    else if (x > 4.3) return 15.0;
+    else return 0.0;
+}
+
+double compute_y(double x, double a, double b) {
+    double value = pow(log10(a * fabs(x)) / log10(3), 1.0 / 5);
+    value = cos(value) / exp(sqrt(a * x)) * pow(sin(b * x), 2);
+    return value;
+}
+
+void insertion_sort(double arr[], int n, int& num_comparisons, int& num_swaps) {
+    for (int i = 1; i < n; i++) {
+        double key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            num_comparisons++;
+            arr[j + 1] = arr[j];
+            num_swaps++;
+            j--;
+        }
+        arr[j + 1] = key;
+        num_swaps++;
+    }
+}
+
+int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    const double b = 2.6;
+    const double x_start = -5.8;
+    const double x_end = 10.6;
+    const double step = 2.5;
+    int num_values = (x_end - x_start) / step + 1;
+
+    double* values = new double[num_values];
+    int num_comparisons = 0;
+    int num_swaps = 0;
+
+    int i = 0;
+    for (double x = x_start; x <= x_end; x += step) {
+        double a = compute_a(x);
+        double y = compute_y(x, a, b);
+        values[i] = y;
+        i++;
+    }
+
+    insertion_sort(values, num_values, num_comparisons, num_swaps);
+
+    cout << "Посортовані значення:" << endl;
+    for (int i = 0; i < num_values; i++) {
+        cout << values[i] << endl;
+    }
+
+    cout << "Кількість порівнянь: " << num_comparisons << endl;
+    cout << "Кількість обмінів: " << num_swaps << endl;
+
+    delete[] values;
+
+    return 0;
+}
