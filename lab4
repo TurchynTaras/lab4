@@ -10,8 +10,8 @@ double compute_a(double x) {
 }
 
 double compute_y(double x, double a, double b) {
-    double value = pow(log10(a * fabs(x)) / log10(3), 1.0 / 5);
-    value = cos(value) / exp(sqrt(a * x)) * pow(sin(b * x), 2);
+    double value = pow(log10(fabs(a) * fabs(x)) / log10(3), 1.0 / 5);
+    value = 0.0001+cos(value) / exp(sqrt(fabs(a * x))) * pow(sin(b * x), 2);
     return value;
 }
 
